@@ -1,5 +1,5 @@
 {
-  "name": "bingo-frontend",
+  "name": "bingo-frontend-advanced",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -8,9 +8,9 @@
     "preview": "vite preview --port 5174"
   },
   "dependencies": {
-    "socket.io-client": "^4.7.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "socket.io-client": "^4.7.1"
   },
   "devDependencies": {
     "vite": "^5.0.0",
