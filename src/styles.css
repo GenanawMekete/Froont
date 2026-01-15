@@ -1,82 +1,15 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f3d9f5;
-}
-
-.app {
-  padding: 20px;
-}
-
-.header {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.countdown {
-  font-size: 48px;
-  font-weight: 900;
-  color: #7b1fa2;
-  width: 70px;
-  text-align: center;
-}
-
-.subtitle {
-  color: #555;
-  font-size: 14px;
-}
-
-.card-list {
-  display: flex;
-  gap: 14px;
-  overflow-x: auto;
-  margin-top: 20px;
-  padding-bottom: 10px;
-}
-
-.card {
-  background: white;
-  padding: 6px;
-  border-radius: 12px;
-  border: 3px solid transparent;
-  cursor: pointer;
-}
-
-.card.selected {
-  border-color: #ff9800;
-}
-
-.row {
-  display: flex;
-}
-
-.cell {
-  width: 28px;
-  height: 28px;
-  border: 1px solid #ddd;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-}
-
-.cell.large {
-  width: 56px;
-  height: 56px;
-  font-size: 18px;
-}
-
-.board {
-  margin-top: 30px;
-  background: white;
-  padding: 16px;
-  border-radius: 14px;
-  display: inline-block;
-}
-
-.waiting {
-  margin-top: 40px;
-  font-size: 20px;
-  color: #444;
-}
+body { font-family: Arial, sans-serif; background: #f3e6f3; color: #222; padding: 16px; }
+.app { max-width: 900px; margin: 0 auto; }
+.controls button { margin-right: 8px; padding: 10px 14px; background: #ff8c00; border: none; color: white; border-radius: 6px; cursor:pointer;}
+.controls .bingo { background: #ff5722; font-weight: 700; }
+.main { display: flex; margin-top: 20px; }
+.left { width: 200px; margin-right: 20px; }
+.right { flex: 1; }
+.board { display: inline-block; background: #fff; padding: 12px; border-radius: 8px; box-shadow: 0 0 6px rgba(0,0,0,0.1);}
+.board-row { display:flex; }
+.cell { width: 56px; height:56px; margin:4px; border-radius:6px; border:1px solid #ddd; background:#f7f7f7; cursor:pointer; font-weight:700; }
+.cell.marked { background: #ff9800; color: white; }
+.cell.free { background: #4caf50; color:white; cursor:default; }
+.called-list { display:flex; flex-wrap:wrap; gap:6px; }
+.call { background:#fff3e0; padding:8px; border-radius:6px; min-width:36px; text-align:center; }
+.message { margin-top: 16px; font-weight:700; }
