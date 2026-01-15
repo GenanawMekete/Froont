@@ -1,20 +1,23 @@
 import React from 'react';
 
-export default function Sidebar({ state, messages = [] }) {
+export default function Sidebar({ game, calls, message }) {
   return (
     <div className="sidebar">
       <div className="card">
         <h4>Game</h4>
-        <div>Status: <b>{state?.roundActive ? 'Running' : 'Stopped'}</b></div>
-        <div>Calls: <b>{state?.calls?.length || 0}</b></div>
-        <div>Remaining: <b>{state?.remainingCount ?? '-'}</b></div>
+        <div>Id: <b>{game?._id || '-'}</b></div>
+        <div>Status: <b>{game?.status || '-'}</b></div>
+        <div>Calls: <b>{calls.length}</b></div>
       </div>
 
       <div className="card">
         <h4>Messages</h4>
-        <div className="msgs">
-          {messages.map((m,i) => <div key={i} className="msg">{m}</div>)}
-        </div>
+        <div className="message">{message || 'No messages'}</div>
+      </div>
+
+      <div className="card">
+        <h4>Help</h4>
+        <p>Press <b>BINGO!</b> to claim and the server will validate your board.</p>
       </div>
     </div>
   );
