@@ -1,29 +1,31 @@
 import React, { useState } from 'react';
 
-export default function Lobby({ onJoin, onCreate, currentPlayer }) {
+export default function Lobby({ onCreate, onJoin, currentGame }) {
   const [name, setName] = useState('');
-  const [cards, setCards] = useState(1);
+  const [gameId, setGameId] = useState('');
 
   return (
     <div className="lobby">
-      <h3>Lobby</h3>
-
-      <div style={{marginBottom:8}}>
-        <input placeholder="Your name" value={name} onChange={e=>setName(e.target.value)} />
+      <div className="create">
+        <h3>Create Game</h3>
+        <input placeholder="Game name" value={name} onChange={e=>setName(e.target.value)} />
+        <button onClick={()=>onCreate({ name: name || 'Game', stake: 10 })}>Create</button>
       </div>
 
-      <div style={{marginBottom:8}}>
-        <label>Cards: </label>
-        <input type="number" min="1" max="10" value={cards} onChange={e=>setCards(Number(e.target.value))} />
+      <div className="join">
+        <h3>Join Game</h3>
+        <input placeholder="Game ID" value={gameId} onChange={e=>setGameId(e.target.value)} />
+        <input placeholder="Your name" id="join-name" />
+        <button onClick={() => {
+          const nm = document.getElementById('join-name').value || 'Player';
+          onJoin(gameId, nm);
+        }}>Join</button>
       </div>
 
-      <div style={{display:'flex', gap:8}}>
-        <button onClick={() => onJoin(name || 'Player', cards)}>Join Game</button>
-        <button onClick={() => onCreate()}>Start Round</button>
-      </div>
-
-      <div style={{marginTop:12}}>
-        <strong>Signed in:</strong> {currentPlayer ? currentPlayer.name : 'No'}
+      <div className="current">
+        <h4>Current</h4>
+        <div>Game ID: {currentGame?._id || '-'}</div>
+        <div>Stake: {currentGame?.stake || '-'}</div>
       </div>
     </div>
   );
