@@ -1,36 +1,52 @@
 import React, { useState, useEffect } from 'react';
 
-export default function Board({ grid = [], marks = [], onMark = ()=>{} }) {
-  const [localMarks, setLocalMarks] = useState(marks);
+/*
+Props:
+- grid: 2D array of numbers (null for free)
+- called: Set of called numbers
+- onMarkChange: function(newMarks)
+*/
+export default function Board({ grid = [], called = new Set(), onMarkChange = ()=>{} }) {
+  const size = grid.length || 5;
+  const initMarks = (g) => g.map(row => row.map(cell => cell === null));
+  const [marks, setMarks] = useState(() => initMarks(grid));
 
-  useEffect(()=> setLocalMarks(marks), [marks]);
+  useEffect(()=> setMarks(initMarks(grid)), [grid]);
 
-  function toggle(r,c){
-    const nm = localMarks.map(row => row.slice());
+  function toggle(r,c) {
+    if (grid[r][c] === null) return;
+    const nm = marks.map(row => row.slice());
     nm[r][c] = !nm[r][c];
-    setLocalMarks(nm);
-    onMark(nm);
+    setMarks(nm);
+    onMarkChange(nm);
+  }
+
+  function cellClass(r,c) {
+    const isMarked = marks[r][c];
+    const val = grid[r][c];
+    const calledNow = val !== null && called.has(val);
+    return [
+      'cell',
+      isMarked ? 'marked' : '',
+      calledNow ? 'called' : '',
+      val === null ? 'free' : ''
+    ].join(' ');
   }
 
   return (
-    <div className="board">
-      {grid.map((row, r) => (
-        <div key={r} className="board-row">
-          {row.map((val, c) => {
-            const isFree = val === null;
-            return (
-              <button
-                key={c}
-                className={`cell ${localMarks[r][c] ? 'marked' : ''} ${isFree ? 'free' : ''}`}
-                onClick={() => !isFree && toggle(r,c)}
-                disabled={isFree}
-              >
-                {isFree ? '★' : val}
-              </button>
-            );
-          })}
-        </div>
-      ))}
+    <div className="board-wrapper">
+      <div className="board-grid" role="grid" style={{ gridTemplateColumns: `repeat(${size}, 64px)`}}>
+        {grid.map((row, r) => row.map((val, c) => (
+          <button
+            key={`${r}-${c}`}
+            className={cellClass(r,c)}
+            onClick={() => toggle(r,c)}
+            aria-label={`cell ${r}-${c}`}
+          >
+            {val === null ? '★' : val}
+          </button>
+        )))}
+      </div>
     </div>
   );
 }
